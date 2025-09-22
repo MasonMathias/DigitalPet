@@ -69,6 +69,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
                 ),
               ),
             ),
+            SizedBox(height: 16.0),
             Text(
               'Name: $petName',
               style: TextStyle(fontSize: 20.0),
