@@ -12,13 +12,12 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
-  String petName = "Jim Bob";
+  final TextEditingController _controller = TextEditingController();
+  String? petName;
   int happinessLevel = 50;
   int hungerLevel = 50;
   Color squareColor = Colors.yellow;
   String petMood = "neutral";
-
-
 
   void _playWithPet() {
     setState(() {
@@ -107,6 +106,26 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                petName == null
+                ? 
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter Pet Name',
+                    ),
+                    onSubmitted: (value) {
+                      if (value.trim().isNotEmpty) {
+                        setState(() {
+                          petName = value.trim();
+                        });
+                      }
+                    },
+                  ),
+                )
+                : 
                 Text(
                   'Name: $petName',
                   style: TextStyle(fontSize: 20.0),
