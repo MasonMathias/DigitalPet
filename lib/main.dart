@@ -31,7 +31,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   void _checkWinLoss() {
     if ((hungerLevel >= 100) & (happinessLevel <= 10)) {
       _loss();
-    } else if ((winTimer != null) & (happinessLevel >= 80)) {
+    } else if ((winTimer == null) & (happinessLevel >= 80)) {
       _startWinTimer();
     } else if ((winTimer != null) & (happinessLevel < 80)) {
       winTimer = null;
@@ -39,15 +39,15 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   }
 
   void _win() {
-    //win
+    petName = 'won';
   }
 
   void _loss() {
-    //loss
+    petName = 'lost';
   }
 
   void _startHungerTimer() {
-    hungerTimer = Timer.periodic(Duration(seconds: 30), (timer) {
+    hungerTimer = Timer.periodic(Duration(seconds: 20), (timer) {
       _updateHunger();
     });
   }
@@ -99,6 +99,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
         happinessLevel += 10;
       }
       _updateMood();
+      _checkWinLoss();
     });
   }
 
@@ -110,6 +111,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
         happinessLevel -= 20;
       }
       _updateMood();
+      _checkWinLoss();
     });
   }
 
