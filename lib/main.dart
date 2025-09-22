@@ -13,7 +13,8 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
-  Timer? _timer;
+  Timer? winTimer;
+  Timer? hungerTimer;
   final TextEditingController _controller = TextEditingController();
   String? petName;
   int happinessLevel = 50;
@@ -21,8 +22,32 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   Color squareColor = Colors.yellow;
   String petMood = "neutral";
 
+  void _startWinTimer() {
+    winTimer = Timer.periodic(Duration(seconds: 180), (timer) {
+      _win();
+    });
+  }
+
+  void _checkWinLoss() {
+    if ((hungerLevel >= 100) & (happinessLevel <= 10)) {
+      _loss();
+    } else if ((winTimer != null) & (happinessLevel >= 80)) {
+      _startWinTimer();
+    } else if ((winTimer != null) & (happinessLevel < 80)) {
+      winTimer = null;
+    }
+  }
+
+  void _win() {
+    //win
+  }
+
+  void _loss() {
+    //loss
+  }
+
   void _startHungerTimer() {
-    _timer = Timer.periodic(Duration(seconds: 30), (timer) {
+    hungerTimer = Timer.periodic(Duration(seconds: 30), (timer) {
       _updateHunger();
     });
   }
@@ -31,7 +56,6 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     setState(() {
       happinessLevel += 10;
       _updateHunger();
-      _updateMood();
     });
   }
 
@@ -39,7 +63,6 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     setState(() {
       hungerLevel -= 10;
       _updateHappiness();
-      _updateMood();
     });
   }
 
@@ -69,11 +92,14 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   }
 
   void _updateHappiness() {
-    if (hungerLevel < 30) {
-      happinessLevel -= 20;
-    } else {
-      happinessLevel += 10;
-    }
+    setState(() {
+      if (hungerLevel < 30) {
+        happinessLevel -= 20;
+      } else {
+        happinessLevel += 10;
+      }
+      _updateMood();
+    });
   }
 
   void _updateHunger() {
@@ -83,6 +109,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
         hungerLevel = 100;
         happinessLevel -= 20;
       }
+      _updateMood();
     });
   }
 
