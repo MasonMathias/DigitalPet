@@ -38,7 +38,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
 
   void _updateMood() {
     setState(() {
-      _updateColor()
+      _updateColor();
       if (happinessLevel < 30) {
         petMood = "unhappy";
       } else if (happinessLevel < 70) {
