@@ -93,7 +93,6 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
               'Mood: $petMood',
               style: TextStyle(fontSize: 20.0),
             ),
-            SizedBox(height: 16.0),
             Container(
               width: 200,
               height: 200,
