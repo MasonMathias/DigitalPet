@@ -12,7 +12,7 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
-  String petName = "Your Pet";
+  String petName = "Jim Bob";
   int happinessLevel = 50;
   int hungerLevel = 50;
 
