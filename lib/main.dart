@@ -15,11 +15,15 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   String petName = "Jim Bob";
   int happinessLevel = 50;
   int hungerLevel = 50;
+  Color squareColor = Colors.yellow;
+
+
 
   void _playWithPet() {
     setState(() {
       happinessLevel += 10;
       _updateHunger();
+      _updateColor();
     });
   }
 
@@ -27,6 +31,19 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     setState(() {
       hungerLevel -= 10;
       _updateHappiness();
+      _updateColor();
+    });
+  }
+
+  void _updateColor() {
+    setState(() {
+      if (happinessLevel < 30) {
+        squareColor = Colors.red;
+      } else if (happinessLevel < 70) {
+        squareColor = Colors.yellow;
+      } else {
+        squareColor = Colors.green;
+      }
     });
   }
 
@@ -63,16 +80,26 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
               height: 200,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                // Use the AssetImage widget here!
                   image: AssetImage('assets/images/pet.png'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             SizedBox(height: 16.0),
-            Text(
-              'Name: $petName',
-              style: TextStyle(fontSize: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Name: $petName',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                SizedBox(width: 16.0),
+                Container(
+                  width: 16,
+                  height: 16,
+                  color: squareColor,
+                ),
+              ],
             ),
             SizedBox(height: 16.0),
             Text(
