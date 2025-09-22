@@ -16,6 +16,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   int happinessLevel = 50;
   int hungerLevel = 50;
   Color squareColor = Colors.yellow;
+  String petMood = "neutral";
 
 
 
@@ -23,7 +24,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     setState(() {
       happinessLevel += 10;
       _updateHunger();
-      _updateColor();
+      _updateMood();
     });
   }
 
@@ -31,7 +32,20 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
     setState(() {
       hungerLevel -= 10;
       _updateHappiness();
-      _updateColor();
+      _updateMood();
+    });
+  }
+
+  void _updateMood() {
+    setState(() {
+      _updateColor()
+      if (happinessLevel < 30) {
+        petMood = "unhappy";
+      } else if (happinessLevel < 70) {
+        petMood = "neutral";
+      } else {
+        petMood = "happy";
+      }
     });
   }
 
@@ -75,6 +89,11 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+              'Mood: $petMood',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
             Container(
               width: 200,
               height: 200,
