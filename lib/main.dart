@@ -13,6 +13,10 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
+  bool wonOrLost = false;
+  bool won = false;
+  bool lost = false;
+  String? winLossText;
   Timer? winTimer;
   Timer? hungerTimer;
   final TextEditingController _controller = TextEditingController();
@@ -39,11 +43,19 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   }
 
   void _win() {
-    petName = 'won';
+    if (wonOrLost != true) {
+      won = true;
+      wonOrLost = true;
+      winLossText = 'You Win';
+    }
   }
 
   void _loss() {
-    petName = 'lost';
+    if (wonOrLost != true) {
+      lost = true;
+      wonOrLost = true;
+      winLossText = 'Game Over';
+    }
   }
 
   void _startHungerTimer() {
@@ -125,6 +137,12 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            wonOrLost
+            ?
+            Text(
+              '$winLossText',
+              style: TextStyle(fontSize: 40.0),
+            ),
             Text(
               'Mood: $petMood',
               style: TextStyle(fontSize: 20.0),
