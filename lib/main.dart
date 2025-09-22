@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -12,12 +13,19 @@ class DigitalPetApp extends StatefulWidget {
 }
 
 class _DigitalPetAppState extends State<DigitalPetApp> {
+  Timer? _timer;
   final TextEditingController _controller = TextEditingController();
   String? petName;
   int happinessLevel = 50;
   int hungerLevel = 50;
   Color squareColor = Colors.yellow;
   String petMood = "neutral";
+
+  void _startHungerTimer() {
+    _timer = Timer.periodic(Duration(seconds: 30), (timer) {
+      _updateHunger();
+    });
+  }
 
   void _playWithPet() {
     setState(() {
@@ -117,6 +125,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
                       labelText: 'Enter Pet Name',
                     ),
                     onSubmitted: (value) {
+                      _startHungerTimer();
                       if (value.trim().isNotEmpty) {
                         setState(() {
                           petName = value.trim();
