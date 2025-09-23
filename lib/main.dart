@@ -23,6 +23,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   String? petName;
   int happinessLevel = 50;
   int hungerLevel = 50;
+  double energyLevel = 0.1;
   Color squareColor = Colors.yellow;
   String petMood = "neutral";
 
@@ -83,10 +84,12 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
       _updateColor();
       if (happinessLevel < 30) {
         petMood = "unhappy";
+        _updateEnergy();
       } else if (happinessLevel < 70) {
         petMood = "neutral";
       } else {
         petMood = "happy";
+        _updateEnergy();
       }
     });
   }
@@ -124,6 +127,22 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
       }
       _updateMood();
       _checkWinLoss();
+    });
+  }
+
+  void _updateEnergy() {
+    setState(() {
+      if (petMood == "happy") {
+        energyLevel += 0.05;
+      } else if (petMood == "unhappy") {
+        energyLevel -= 0.15;
+      }
+
+      if (energyLevel > 1) {
+        energyLevel = 1;
+      } else if (energyLevel < 0) {
+        energyLevel = 0;
+      }
     });
   }
 
@@ -199,13 +218,40 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
             ),
             SizedBox(height: 16.0),
             Text(
-              'Happiness Level: $happinessLevel',
+              'Happiness: $happinessLevel',
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 16.0),
             Text(
-              'Hunger Level: $hungerLevel',
+              'Hunger: $hungerLevel',
               style: TextStyle(fontSize: 20.0),
+            ),
+            SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Energy:',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                SizedBox(width: 10.0),
+                Container(
+                  width: 80,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2), // outline thickness
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(2),
+                    child: LinearProgressIndicator(
+                      value: energyLevel,
+                      color: Colors.lightGreen,
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(height: 32.0),
             ElevatedButton(
