@@ -142,7 +142,10 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
             Text(
               '$winLossText',
               style: TextStyle(fontSize: 40.0),
-            ),
+            )
+            :
+            SizedBox(height: 40.0),
+            SizedBox(height: 16.0),
             Text(
               'Mood: $petMood',
               style: TextStyle(fontSize: 20.0),
