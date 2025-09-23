@@ -23,7 +23,7 @@ class _DigitalPetAppState extends State<DigitalPetApp> {
   String? petName;
   int happinessLevel = 50;
   int hungerLevel = 50;
-  double energyLevel = 0.1;
+  double energyLevel = 0.5;
   Color squareColor = Colors.yellow;
   String petMood = "neutral";
 
